@@ -3,7 +3,7 @@ Music using EC concepts.
 
 
 ## Objectives
-Gerar melodias agradáveis usando os conceitos de Computação Evolutiva e Teoria Musical.
+Generate pleasant melodies using the concepts of Evolutionary Computing and Musical Theory.
 
 ## What is done?
 The model is able to generate a population and to cross between the best pairs.

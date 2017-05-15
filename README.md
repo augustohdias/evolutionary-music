@@ -17,5 +17,5 @@ The model is able to generate a population and to cross between the best pairs.
 
 * Generation of melodies based on a chord progression.
 
-## Future Projects
-Supervised learning aiming at the abstraction of a particular musical style so that the evaluations of solution are better directed.
+## Further Projects
+Apply supervised learning, aiming the abstraction of a particular musical style. The melody generation will be expanded to a full composition generation.

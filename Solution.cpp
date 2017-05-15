@@ -51,20 +51,20 @@ void Solution::evaluate(Problem &p) {
     vector<int> dissonances;
     for (int i = 0; i < notes.size(); i++) {
         if (find(majorScale.begin(), majorScale.end(), notes[i]) != majorScale.end()) {
-            score += 40;
+            score += 100;
         }
         else if (notes[i] >= 0) {
-            score -= 20;
+            score -= 50;
             dissonances.push_back(i);
         }
     }
 
     for (int i = 0; i < dissonances.size(); i++) {
         if (abs(majorScale[dissonances[i] - 1] - majorScale[dissonances[i] + 1]) == 1) {
-            score += 20;
+            score += 50;
         }
         else {
-            score -= 20;
+            score -= 50;
         }
     }
 }

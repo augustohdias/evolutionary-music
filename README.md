@@ -8,7 +8,7 @@ Generate pleasant melodies using the concepts of Evolutionary Computing and Musi
 ## What is done?
 The model is able to generate a population and to cross between the best pairs.
 
-## Improves
+## Need to be done
 * Implement mutation;
 
 * Improve the metrics for the evaluation of individuals, considering aspects such as scale change, tension and resolution;

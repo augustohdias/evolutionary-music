@@ -1,5 +1,5 @@
 //
-// Created by augusto on 10/05/17.
+// Created by augusto on 14/05/17.
 //
 
 #ifndef MUSICAEVOLUTIVA_PROBLEM_H
@@ -8,7 +8,7 @@
 class Problem {
 public:
     Problem();
-    int getKey();
+    int getKey() const;
 
 private:
     int key;

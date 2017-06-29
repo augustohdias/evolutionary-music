@@ -1,53 +1,58 @@
-#include <algorithm>
 #include <iostream>
+#include <random>
+#include <algorithm>
 
 using namespace std;
 
+
 #include "Problem.h"
-#include "Solution.h"
+#include "Solucao.h"
+
 
 
 int main() {
-    Problem p;
-    vector<Solution> population;
+    Problem keyNote;
+    vector<Solucao> population;
+    vector<Solucao> filhos;
+    vector<Solucao> nextGen;
 
-    int genNumber = 0;
-    while (true) {
-        for (int i = 0; i < 990; i++) {
-            population.push_back(Solution(p));
-            population[i].evaluate(p);
-        }
+    int cont = 0;
 
-        sort(population.begin(), population.end(), [](const Solution& x, const Solution &y) { return (x > y); });
+    for (int i = 0; i < 100; i++) population.push_back(Solucao(keyNote));
 
-        vector<Solution> selection(population.begin(), population.begin()+45);
+    int gen = 0;
+    while (gen++ < 100) {
+        cout << endl << endl << "Generation: " << gen << endl;
 
-        cout << "Generation #" << genNumber << endl;
-        cout << "Best generation score: " << selection[0].getScore() << endl;
+        random_device rd;
+        mt19937_64 mt(rd());
+        uniform_real_distribution<double> distribution(0, 1);
 
-        if (genNumber > 20){
-            FILE* file;
+        double probability = distribution(mt);
 
-            vector<int> notes = selection[1].getNotes();
-            selection[1].display();
-
-            file = fopen("notes", "w+b");
-            for (int j = 0; j < notes.size(); j++) {
-                fwrite(&notes[j], sizeof(int), 1, file);
-            }
-
-            fclose(file);
-            return 0;
-        }
-
-        population.clear();
-
-        for (int i = 0; i < 44; i++) {
-            for (int j = i + 1; j < 45; j++){
-                population.push_back(Solution::crossover(selection[i], selection[j], p));
+        if (probability <= 0.95) { // Crossover
+            cout << "Crossover" << endl;
+            for (int i = 1; i < population.size(); i++) {
+                filhos.push_back(Solucao::cruzar(population[i - 1], population[i], keyNote));
+                filhos.push_back(Solucao::cruzar(population[i], population[i - 1], keyNote));
             }
         }
+        else {
+            cout << "Mutation" << endl;
+            cont++;
+            for (auto a : population) a.mutar();
+            continue;
+        }
 
-        genNumber++;
+        sort(nextGen.begin(), nextGen.end(), Solucao::cmp);
+        sort(population.begin(), population.end(), Solucao::cmp);
+
+        for (int i = 0; i < (population.size()/2); i++) {
+            nextGen.push_back(population[i]);
+            nextGen.push_back(filhos[i]);
+        }
+
+        population = nextGen;
+        nextGen.clear();
     }
 }
